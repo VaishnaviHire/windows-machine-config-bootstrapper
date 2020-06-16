@@ -240,6 +240,9 @@ func prepKubeletConfForWindows(wmcb *winNodeBootstrapper, initialConfig []byte) 
 	cgroupsPerQOS := false
 	config.CgroupsPerQOS = &cgroupsPerQOS
 	config.Authentication.X509.ClientCAFile = filepath.Join(wmcb.installDir, "kubelet-ca.crt")
+	annon := true
+	config.Authentication.Anonymous = kubeletConfig.KubeletAnonymousAuthentication{Enabled:&annon}
+
 
 	// We need to set EnforceNodeAllocatable with an empty slice, "enforceNodeAllocatable:[]"
 	// the json tags have the field set as `omitempty`, and the field defaults to enforceNodeAllocatable:["pods"]
